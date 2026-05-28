@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Javier — Ingeniería & Sistemas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/source.css">
+</head>
+<body data-screen-label="D · Source">
+<script>
+  try {
+    if (sessionStorage.getItem('boot-done') === '1') {
+      document.documentElement.classList.add('skip-boot');
+    }
+  } catch (e) {}
+</script>
+<div id="bg-viewport" aria-hidden="true">
+  <pre id="bg-code"></pre>
+</div>
+<div class="grain"></div>
+<div class="cursor" id="cursor"></div>
+<div id="ac" hidden></div>
+<!-- CUSTOM SCROLLBAR (HUD) -->
+<div id="hud-scroll-track" aria-hidden="true">
+  <div id="hud-scroll-thumb">
+    <div id="hud-scroll-info"><span id="hud-scroll-val"></span></div>
+  </div>
+</div>
+
+<div id="boot-overlay" aria-hidden="true" data-state="idle">
+  <div class="boot-crt"></div>
+  <div class="boot-grid"></div>
+  <div class="boot-sweep"></div>
+  <div class="boot-particles"></div>
+  <div class="boot-name">
+    <span class="g">j</span><span class="g">a</span><span class="g">v</span><span class="g">i</span><span class="g">e</span><span class="g">r</span><span class="g dot">.</span><span class="g">d</span><span class="g">e</span><span class="g">v</span>
+  </div>
+  <div class="boot-prompt">
+    <span class="p-arrow">&gt;</span><span class="p-txt"> ready</span><span class="p-caret"></span>
+  </div>
+</div>
+
+<div class="shell">
+
+  <header class="top">
+    <a class="brand" href="#hero"><span class="brand-text">Javier</span><span class="dot">.</span></a>
+    <nav>
+      <a href="#hero">Inicio</a>
+      <a href="#skills">Habilidades</a>
+      <a href="#projects">Proyectos</a>
+      <a href="#log">Trayectoria</a>
+      <a href="#contact">Contacto</a>
+    </nav>
+    <div class="right">
+      <span class="badge-open"><span class="dot"></span><span data-es="disponible" data-en="available">disponible</span></span>
+      <span class="lang">
+        <button data-set-lang="es" class="on">ES</button>
+        <button data-set-lang="en">EN</button>
+      </span>
+      <span class="theme">
+        <button data-set-theme="dark" class="on" title="Oscuro">☾</button>
+        <button data-set-theme="light" title="Claro">☀</button>
+      </span>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="hero">
+    <p class="hero-prompt">
+      <span class="p-path">~/projects</span> javier@upv<span style="color:var(--muted)">$</span><span class="p-cur"></span>
+    </p>
+    <h1>
+      <span data-compile data-compile-dur="520" data-ref="name">Javier</span><span class="dot">.</span>
+    </h1>
+    <p id="hero-tagline" class="tagline" data-ref="tagline"
+       data-es-0="Construyo productos web sólidos &mdash; y cuando el problema lo merece, los conecto con <em>sistemas físicos</em>."
+       data-en-0="I build solid web products &mdash; and when the problem deserves it, I wire them to <em>physical systems</em>."
+       data-es-1="Del frontend al hardware: cada capa del stack, cuando el problema lo exige."
+       data-en-1="From frontend to hardware: every layer of the stack, when the problem demands it."
+       data-es-2="Software que corre. Hardware que mide. La brecha entre ambos es donde trabajo."
+       data-en-2="Software that runs. Hardware that measures. The gap between them is where I work."
+    >
+      Construyo productos web sólidos &mdash; y cuando el problema lo merece, los conecto con <em>sistemas físicos</em>.
+    </p>
+    <div class="hero-waveform" aria-hidden="true">
+      <svg viewBox="0 0 1200 28" preserveAspectRatio="none">
+        <path d="M0,14 L1200,14" stroke="var(--accent)" stroke-width="0.5" stroke-dasharray="3 5" fill="none" opacity="0.4"/>
+        <path id="hw-signal" fill="none" stroke="var(--accent)" stroke-width="1.4"/>
+      </svg>
+    </div>
+    <div class="marquee-wrap" aria-hidden="true">
+      <div class="marquee-track">
+        <span>TypeScript</span><span class="sep">·</span>
+        <span>React / Next</span><span class="sep">·</span>
+        <span>Rust</span><span class="sep">·</span>
+        <span>C++20</span><span class="sep">·</span>
+        <span>Python</span><span class="sep">·</span>
+        <span>PyTorch</span><span class="sep">·</span>
+        <span>CUDA</span><span class="sep">·</span>
+        <span>Unity HDRP</span><span class="sep">·</span>
+        <span>KiCad</span><span class="sep">·</span>
+        <span>SPICE</span><span class="sep">·</span>
+        <span>PWA · IndexedDB</span><span class="sep">·</span>
+        <span>Firebase</span><span class="sep">·</span>
+        <span>TypeScript</span><span class="sep">·</span>
+        <span>React / Next</span><span class="sep">·</span>
+        <span>Rust</span><span class="sep">·</span>
+        <span>C++20</span><span class="sep">·</span>
+        <span>Python</span><span class="sep">·</span>
+        <span>PyTorch</span><span class="sep">·</span>
+        <span>CUDA</span><span class="sep">·</span>
+        <span>Unity HDRP</span><span class="sep">·</span>
+        <span>KiCad</span><span class="sep">·</span>
+        <span>SPICE</span><span class="sep">·</span>
+        <span>PWA · IndexedDB</span><span class="sep">·</span>
+        <span>Firebase</span><span class="sep">·</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="ch">
+    <p class="ch-label" data-compile data-compile-dur="280" data-es="HABILIDADES" data-en="SKILLS">HABILIDADES</p>
+    <div class="skills">
+      <div class="skill-domain">
+        <h3 data-compile data-compile-delay="0" data-compile-dur="240" data-es="Desarrollo web" data-en="Web development">Desarrollo web</h3>
+        <p data-es="<span class='k'>TypeScript</span>, React/Next, Vite, Tailwind y arquitecturas offline-first (PWA · IndexedDB · Workbox). Builds pequeños que cargan antes de que el usuario pierda la atención." data-en="<span class='k'>TypeScript</span>, React/Next, Vite, Tailwind and offline-first architectures (PWA · IndexedDB · Workbox). Small builds that load before the user loses attention.">
+          <span class="k">TypeScript</span>, React/Next, Vite, Tailwind y arquitecturas offline-first (PWA · IndexedDB · Workbox). Builds pequeños que cargan antes de que el usuario pierda la atención.
+        </p>
+      </div>
+      <div class="skill-domain">
+        <h3 data-compile data-compile-delay="60" data-compile-dur="260" data-es="Sistemas de alto rendimiento" data-en="High-performance systems">Sistemas de alto rendimiento</h3>
+        <p data-es="<span class='k'>Rust</span>, C++20, Python y CUDA. Para cuando el código tiene que correr —no solo funcionar— y los milisegundos importan." data-en="<span class='k'>Rust</span>, C++20, Python and CUDA. For when code has to run —not just work— and milliseconds count.">
+          <span class="k">Rust</span>, C++20, Python y CUDA. Para cuando el código tiene que correr —no solo funcionar— y los milisegundos importan.
+        </p>
+      </div>
+      <div class="skill-domain">
+        <h3 data-compile data-compile-delay="120" data-compile-dur="260" data-es="Inteligencia artificial" data-en="Artificial intelligence">Inteligencia artificial</h3>
+        <p data-es="<span class='k'>PyTorch</span>, Vision Transformers, procesamiento de señales, explicabilidad (Grad-CAM, attention rollout). Entreno modelos sobre datos de LIGO/Virgo." data-en="<span class='k'>PyTorch</span>, Vision Transformers, signal processing, explainability (Grad-CAM, attention rollout). I train models on LIGO/Virgo data.">
+          <span class="k">PyTorch</span>, Vision Transformers, procesamiento de señales, explicabilidad (Grad-CAM, attention rollout). Entreno modelos sobre datos de LIGO/Virgo.
+        </p>
+      </div>
+      <div class="skill-domain">
+        <h3 data-compile data-compile-delay="180" data-compile-dur="260" data-es="Hardware y electrónica" data-en="Hardware &amp; electronics">Hardware y electrónica</h3>
+        <p data-es="<span class='k'>KiCad</span>, SPICE, ruteado de PCB, soldadura SMD, Peltier, DSO de 1 GHz. Diseño placas y las hago funcionar." data-en="<span class='k'>KiCad</span>, SPICE, PCB routing, SMD soldering, Peltier, 1 GHz scope. I design boards and make them work.">
+          <span class="k">KiCad</span>, SPICE, ruteado de PCB, soldadura SMD, Peltier, DSO de 1 GHz. Diseño placas y las hago funcionar.
+        </p>
+      </div>
+      <div class="skill-domain">
+        <h3 data-compile data-compile-delay="240" data-compile-dur="240" data-es="Motores 3D" data-en="3D engines">Motores 3D</h3>
+        <p data-es="<span class='k'>Unity HDRP</span>, HLSL, compute shaders, generación procedural, origen flotante a escala planetaria." data-en="<span class='k'>Unity HDRP</span>, HLSL, compute shaders, procedural generation, planet-scale floating origin.">
+          <span class="k">Unity HDRP</span>, HLSL, compute shaders, generación procedural, origen flotante a escala planetaria.
+        </p>
+      </div>
+      <div class="skill-domain">
+        <h3 data-compile data-compile-delay="300" data-compile-dur="240" data-es="Física y matemáticas" data-en="Physics &amp; mathematics">Física y matemáticas</h3>
+        <p data-es="Cálculo tensorial, mecánica orbital, métodos numéricos, física de plasmas. La parte académica que me permite leer papers y hablar con investigadores." data-en="Tensor calculus, orbital mechanics, numerical methods, plasma physics. The academic side that lets me read papers and talk to researchers.">
+          Cálculo tensorial, mecánica orbital, métodos numéricos, física de plasmas. La parte académica que me permite leer papers y hablar con investigadores.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="ch">
+    <p class="ch-label" data-compile data-es="PROYECTOS" data-en="PROJECTS">PROYECTOS</p>
+    <div class="proj-panels">
+
+      <article class="proj-panel" data-proj="gw">
+        <div class="proj-boot-bar"><div class="proj-boot-fill"></div></div>
+        <div class="proj-header">
+          <span class="proj-num">01</span>
+          <span class="proj-file">gravitational-waves.py</span>
+          <span class="proj-status wip">● <span data-es="en curso" data-en="in progress">en curso</span></span>
+        </div>
+        <div class="proj-body">
+          <div class="proj-vis">
+            <img src="public/ph_gw.png" class="proj-media loaded" alt="GW Placeholder">
+          </div>
+          <div class="proj-meta">
+            <div class="proj-metrics">
+              <div class="proj-metric"><span class="pm-key">FREQ_PEAK</span><span class="pm-val" id="gw-freq">35 Hz</span></div>
+              <div class="proj-metric"><span class="pm-key">SNR</span><span class="pm-val" id="gw-snr">8.2</span></div>
+              <div class="proj-metric"><span class="pm-key">Δt MERGER</span><span class="pm-val" id="gw-dt">+0.4 s</span></div>
+              <div class="proj-metric"><span class="pm-key">MODEL</span><span class="pm-val">1D-ResNet</span></div>
+            </div>
+            <h4 class="proj-title" data-compile data-es="Detección de ondas gravitacionales" data-en="Gravitational-wave detection">Detección de ondas gravitacionales</h4>
+            <p class="proj-sub" data-compile data-es="1D-ResNet vs Vision Transformer sobre LIGO/Virgo" data-en="1D-ResNet vs Vision Transformer on LIGO/Virgo">1D-ResNet vs Vision Transformer sobre LIGO/Virgo</p>
+            <p class="proj-desc" data-compile data-es="Comparativa empírica entre dos arquitecturas de deep learning entrenadas sobre strain de LIGO/Virgo: clasificación de fusiones de agujeros negros y regresión de parámetros astrofísicos. Con Grad-CAM y UI web." data-en="Empirical comparison of two DL architectures trained on LIGO/Virgo strain: binary-merger classification and astrophysical parameter regression. With Grad-CAM and a friendly web UI.">Comparativa empírica entre dos arquitecturas de deep learning entrenadas sobre strain de LIGO/Virgo: clasificación de fusiones de agujeros negros y regresión de parámetros astrofísicos. Con Grad-CAM y UI web.</p>
+            <div class="proj-tags"><span class="proj-tag">PyTorch</span><span class="proj-tag">GWPy</span><span class="proj-tag">React</span><span class="proj-tag">CUDA</span></div>
+            <div class="proj-links"><a href="https://github.com/Javitax47/TFG_GravitationalWaves_AI" data-es="repositorio" data-en="repository">repositorio</a></div>
+          </div>
+        </div>
+        <div class="proj-telemetry">
+          <span class="vis-channel" data-es="ch · strain" data-en="ch · strain">ch · strain</span>
+          <canvas class="proj-canvas"></canvas>
+          <span class="vis-label">LIGO strain · GW150914</span>
+        </div>
+      </article>
+
+      <article class="proj-panel" data-proj="nltl">
+        <div class="proj-boot-bar"><div class="proj-boot-fill"></div></div>
+        <div class="proj-header">
+          <span class="proj-num">02</span>
+          <span class="proj-file">nltl-analog-gravity.kicad</span>
+          <span class="proj-status wip">● <span data-es="montaje final" data-en="final build">montaje final</span></span>
+        </div>
+        <div class="proj-body">
+          <div class="proj-vis">
+            <img src="public/ph_nltl.png" class="proj-media loaded" alt="NLTL Placeholder">
+          </div>
+          <div class="proj-meta">
+            <h4 class="proj-title" data-compile data-es="NLTL — Gravedad análoga" data-en="NLTL — Analog gravity">NLTL — Gravedad análoga</h4>
+            <p class="proj-sub" data-compile data-es="~20 fenómenos GR en una PCB modular" data-en="~20 GR phenomena on a modular PCB">~20 fenómenos GR en una PCB modular</p>
+            <p class="proj-desc" data-compile data-es="Línea de transmisión no lineal en PCB modular cuyas propiedades dispersivas reproducen horizontes de eventos, radiación de Hawking análoga, superradiancia y solitones. Reproducible, bajo coste, resultados publicables." data-en="Modular non-linear transmission line on PCB whose dispersive properties classically reproduce event horizons, analog Hawking radiation, superradiance and solitons. Reproducible, low-cost, publishable results.">Línea de transmisión no lineal en PCB modular cuyas propiedades dispersivas reproducen horizontes de eventos, radiación de Hawking análoga, superradiancia y solitones. Reproducible, bajo coste, resultados publicables.</p>
+            <div class="proj-tags"><span class="proj-tag">KiCad</span><span class="proj-tag">SPICE</span><span class="proj-tag">SciPy</span><span class="proj-tag">DSO 1GHz</span></div>
+            <div class="proj-links"><a href="#" data-es="esquemático" data-en="schematic">esquemático</a><a href="#" data-es="paper en curso" data-en="paper in progress">paper en curso</a></div>
+          </div>
+        </div>
+        <div class="proj-telemetry">
+          <span class="vis-channel" data-es="ch · pulse" data-en="ch · pulse">ch · pulse</span>
+          <canvas class="proj-canvas"></canvas>
+          <span class="vis-label" data-es="pulso · horizonte análogo" data-en="pulse · analog horizon">pulso · horizonte análogo</span>
+        </div>
+      </article>
+
+      <article class="proj-panel" data-proj="cosmos">
+        <div class="proj-boot-bar"><div class="proj-boot-fill"></div></div>
+        <div class="proj-header">
+          <span class="proj-num">03</span>
+          <span class="proj-file">cosmos.cs</span>
+          <span class="proj-status wip">● <span data-es="en desarrollo" data-en="in development">en desarrollo</span></span>
+        </div>
+        <div class="proj-body">
+          <div class="proj-vis">
+            <img src="public/ph_cosmos.png" class="proj-media loaded" alt="Cosmos Placeholder">
+          </div>
+          <div class="proj-meta">
+            <h4 class="proj-title" data-compile>Cosmos</h4>
+            <p class="proj-sub" data-compile data-es="Universo jugable a escala real" data-en="Playable universe at real scale">Universo jugable a escala real</p>
+            <p class="proj-desc" data-compile data-es="Caminar en la superficie de un planeta y, sin pantallas de carga, despegar hasta otra galaxia. Origen flotante, LOD esférico, terreno procedural con compute shaders y geología estratificada." data-en="Walk a planet's surface and lift off to another galaxy without loading screens. Floating origin, spherical LOD, compute-shader procedural terrain and stratified geology.">Caminar en la superficie de un planeta y, sin pantallas de carga, despegar hasta otra galaxia. Origen flotante, LOD esférico, terreno procedural con compute shaders y geología estratificada.</p>
+            <div class="proj-tags"><span class="proj-tag">Unity HDRP</span><span class="proj-tag">C#</span><span class="proj-tag">HLSL</span><span class="proj-tag">Compute</span></div>
+            <div class="proj-links"><a href="cosmos.html" data-es="devlog" data-en="devlog">devlog</a></div>
+          </div>
+        </div>
+        <div class="proj-telemetry">
+          <span class="vis-channel" data-es="ch · orbit" data-en="ch · orbit">ch · orbit</span>
+          <canvas class="proj-canvas"></canvas>
+          <span class="vis-label" data-es="Unity HDRP · LOD esférico" data-en="Unity HDRP · spherical LOD">Unity HDRP · LOD esférico</span>
+        </div>
+      </article>
+
+      <article class="proj-panel" data-proj="physdeck">
+        <div class="proj-boot-bar"><div class="proj-boot-fill"></div></div>
+        <div class="proj-header">
+          <span class="proj-num">04</span>
+          <span class="proj-file">physdeck.cpp</span>
+          <span class="proj-status ok">● <span data-es="lanzado" data-en="shipped">lanzado</span></span>
+        </div>
+        <div class="proj-body">
+          <div class="proj-vis">
+            <img src="public/ph_physdeck.png" class="proj-media loaded" alt="Physdeck Placeholder">
+          </div>
+          <div class="proj-meta">
+            <h4 class="proj-title" data-compile>Physdeck</h4>
+            <p class="proj-sub" data-compile data-es="Laboratorio de simulación de escritorio" data-en="Desktop simulation laboratory">Laboratorio de simulación de escritorio</p>
+            <p class="proj-desc" data-compile data-es="Tres motores de simulación bajo una interfaz coherente: cascadas de rayos cósmicos (CORSIKA), dinámica de fluidos con detonaciones y predicción de reacciones moleculares. Pipeline de visualización unificado en OpenGL." data-en="Three simulation engines under one coherent UI: cosmic-ray cascades (CORSIKA), explosive fluid dynamics and molecular reaction prediction. Unified OpenGL visualisation pipeline.">Tres motores de simulación bajo una interfaz coherente: cascadas de rayos cósmicos (CORSIKA), dinámica de fluidos con detonaciones y predicción de reacciones moleculares. Pipeline de visualización unificado en OpenGL.</p>
+            <div class="proj-tags"><span class="proj-tag">C++</span><span class="proj-tag">Python</span><span class="proj-tag">Qt6</span><span class="proj-tag">OpenGL</span></div>
+            <div class="proj-links"><a href="physdeck.html" data-es="ficha" data-en="card">ficha</a></div>
+          </div>
+        </div>
+        <div class="proj-telemetry">
+          <span class="vis-channel" data-es="ch · cascade" data-en="ch · cascade">ch · cascade</span>
+          <canvas class="proj-canvas"></canvas>
+          <span class="vis-label" data-es="cascada de rayos cósmicos" data-en="cosmic ray cascade">cascada de rayos cósmicos</span>
+        </div>
+      </article>
+
+      <article class="proj-panel" data-proj="mineralia">
+        <div class="proj-boot-bar"><div class="proj-boot-fill"></div></div>
+        <div class="proj-header">
+          <span class="proj-num">05</span>
+          <span class="proj-file">mineralia.tsx</span>
+          <span class="proj-status ok">● <span data-es="lanzado" data-en="shipped">lanzado</span></span>
+        </div>
+        <div class="proj-body">
+          <div class="proj-vis">
+            <img src="public/ph_mineralia.png" class="proj-media loaded" alt="Mineralia Placeholder">
+          </div>
+          <div class="proj-meta">
+            <h4 class="proj-title" data-compile>Mineralia</h4>
+            <p class="proj-sub" data-compile data-es="Catálogo de minerales offline-first" data-en="Offline-first mineral catalogue">Catálogo de minerales offline-first</p>
+            <p class="proj-desc" data-compile data-es="Una PWA que funciona sin red: consulta, edita y fotografía especímenes en campo. Cuando vuelve la conexión, sincroniza con Firebase. Genera fichas QR y exporta PDF en cliente." data-en="A PWA that works without a connection: browse, edit and photograph specimens in the field. Syncs to Firebase when back online. QR cards and PDF exports in-browser.">Una PWA que funciona sin red: consulta, edita y fotografía especímenes en campo. Cuando vuelve la conexión, sincroniza con Firebase. Genera fichas QR y exporta PDF en cliente.</p>
+            <div class="mineralia-stats">
+              <span class="min-stat"><span class="ms-ok">✔</span> offline</span>
+              <span class="min-stat"><span class="ms-ok">✔</span> sync</span>
+              <span class="min-stat"><span class="ms-ok">✔</span> QR card</span>
+              <span class="min-stat"><span class="ms-ok">✔</span> PDF export</span>
+            </div>
+            <div class="proj-tags"><span class="proj-tag">React</span><span class="proj-tag">Vite</span><span class="proj-tag">IndexedDB</span><span class="proj-tag">Firebase</span></div>
+            <div class="proj-links"><a href="#" data-es="demo" data-en="demo">demo</a><a href="#" data-es="repositorio" data-en="repository">repositorio</a></div>
+          </div>
+        </div>
+        <div class="proj-telemetry">
+          <span class="vis-channel" data-es="ch · sync" data-en="ch · sync">ch · sync</span>
+          <canvas class="proj-canvas"></canvas>
+          <span class="vis-label" data-es="IndexedDB · sync offline" data-en="IndexedDB · offline sync">IndexedDB · sync offline</span>
+        </div>
+      </article>
+
+      <article class="proj-panel" data-proj="mario">
+        <div class="proj-boot-bar"><div class="proj-boot-fill"></div></div>
+        <div class="proj-header">
+          <span class="proj-num" style="color:#ff90a8">06 &#9835;</span>
+          <span class="proj-file">mario-ost-rank.ts</span>
+          <span class="proj-status wip">● <span data-es="casi listo" data-en="almost ready">casi listo</span></span>
+        </div>
+        <div class="proj-body">
+          <div class="proj-vis">
+            <img src="public/ph_mario.png" class="proj-media loaded" alt="Mario Placeholder">
+          </div>
+          <div class="proj-meta">
+            <h4 class="proj-title" data-compile>Mario OST Rank</h4>
+            <p class="proj-sub" data-compile data-es="Ranking de bandas sonoras por swipe" data-en="Soundtrack ranking by swipe">Ranking de bandas sonoras por swipe</p>
+            <p class="proj-desc" data-compile data-es="Convierte el catálogo OST de Mario en una baraja interactiva: swipe estilo citas, listas activas y brackets eliminatorios. El ranking se exporta como imagen." data-en="Turns the Mario OST catalogue into an interactive deck: dating-app swipe, active lists and elimination brackets. The ranking exports as a shareable image.">Convierte el catálogo OST de Mario en una baraja interactiva: swipe estilo citas, listas activas y brackets eliminatorios. El ranking se exporta como imagen.</p>
+            <div class="proj-tags"><span class="proj-tag">TypeScript</span><span class="proj-tag">React</span><span class="proj-tag">Motion</span><span class="proj-tag">Zustand</span></div>
+            <div class="proj-links"><a href="#" data-es="beta próximamente" data-en="beta soon">beta próximamente</a></div>
+          </div>
+        </div>
+        <div class="proj-telemetry">
+          <span class="vis-channel" data-es="ch · deck" data-en="ch · deck">ch · deck</span>
+          <canvas class="proj-canvas"></canvas>
+          <span class="vis-label" data-es="swipe · ranking ELO" data-en="swipe · ELO ranking">swipe · ranking ELO</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- MORE PROJECTS -->
+  <section id="all-projects" class="ch">
+    <div class="catalog-head">
+      <p class="ch-label" data-compile data-compile-dur="280" data-es="MÁS PROYECTOS" data-en="MORE PROJECTS">MÁS PROYECTOS</p>
+      <div class="catalog-filters">
+        <button class="cat-btn active" data-cat="all" data-es="TODOS" data-en="ALL">TODOS</button>
+        <button class="cat-btn" data-cat="hardware" data-es="HARDWARE" data-en="HARDWARE">HARDWARE</button>
+        <button class="cat-btn" data-cat="ai" data-es="AI · ML" data-en="AI · ML">AI · ML</button>
+        <button class="cat-btn" data-cat="software" data-es="SOFTWARE" data-en="SOFTWARE">SOFTWARE</button>
+        <button class="cat-btn" data-cat="future" data-es="PRÓXIMOS" data-en="UPCOMING">PRÓXIMOS</button>
+      </div>
+    </div>
+    <div class="proj-catalog">
+      <div class="cat-item" data-cat="hardware" tabindex="0">
+        <span class="cat-chevron">›</span>
+        <div class="cat-row1"><span class="cat-n">07</span><span class="cat-nm" data-compile data-compile-dur="220" data-es="Cámara de niebla Peltier" data-en="Peltier cloud chamber">Cámara de niebla Peltier</span><span class="cat-yr">2024</span><span class="cat-st ok">done</span></div>
+        <div class="cat-desc" data-es="PCB propia · ciclos térmicos · detección de partículas alfa y beta" data-en="Custom PCB · thermal cycles · alpha &amp; beta particle detection">PCB propia · ciclos térmicos · detección de partículas alfa y beta</div>
+        <div class="cat-expand"><div class="cat-tagrow"><span class="cat-tag">KiCad</span><span class="cat-tag">Peltier</span><span class="cat-tag">SMD</span><span class="cat-tag">high-voltage</span></div></div>
+      </div>
+      <div class="cat-item" data-cat="ai software" tabindex="0">
+        <span class="cat-chevron">›</span>
+        <div class="cat-row1"><span class="cat-n">08</span><span class="cat-nm" data-compile data-compile-dur="220" data-es="Solver de métricas" data-en="Metric solver">Solver de métricas</span><span class="cat-yr">2025</span><span class="cat-st wip">wip</span></div>
+        <div class="cat-desc" data-es="Python · cálculo tensorial simbólico · métricas originales de curvatura" data-en="Python · symbolic tensor calculus · original curvature metrics">Python · cálculo tensorial simbólico · métricas originales de curvatura</div>
+        <div class="cat-expand"><div class="cat-tagrow"><span class="cat-tag">Python</span><span class="cat-tag">SymPy</span><span class="cat-tag">NumPy</span></div></div>
+      </div>
+      <div class="cat-item" data-cat="ai software" tabindex="0">
+        <span class="cat-chevron">›</span>
+        <div class="cat-row1"><span class="cat-n">09</span><span class="cat-nm" data-compile data-compile-dur="220">Trappist-1</span><span class="cat-yr">2025</span><span class="cat-st ok">done</span></div>
+        <div class="cat-desc" data-es="Motor de optimización de misión · Erasmus TU Graz · algoritmos evolutivos" data-en="Mission optimisation engine · Erasmus TU Graz · evolutionary algorithms">Motor de optimización de misión · Erasmus TU Graz · algoritmos evolutivos</div>
+        <div class="cat-expand"><div class="cat-tagrow"><span class="cat-tag">Python</span><span class="cat-tag">DEAP</span><span class="cat-tag">orbital mechanics</span></div></div>
+      </div>
+      <div class="cat-item" data-cat="hardware future" tabindex="0">
+        <span class="cat-chevron">›</span>
+        <div class="cat-row1"><span class="cat-n">10</span><span class="cat-nm" data-compile data-compile-dur="220">Spike-101</span><span class="cat-yr">2026</span><span class="cat-st plan">plan</span></div>
+        <div class="cat-desc" data-es="Núcleo neuromórfico open-source · SkyWater 130nm · spiking neural net en silicio" data-en="Open-source neuromorphic core · SkyWater 130nm · spiking neural net in silicon">Núcleo neuromórfico open-source · SkyWater 130nm · spiking neural net en silicio</div>
+        <div class="cat-expand"><div class="cat-tagrow"><span class="cat-tag">VHDL</span><span class="cat-tag">Sky130</span><span class="cat-tag">neuromorphic</span></div></div>
+      </div>
+      <div class="cat-item" data-cat="hardware software future" tabindex="0">
+        <span class="cat-chevron">›</span>
+        <div class="cat-row1"><span class="cat-n">11</span><span class="cat-nm" data-compile data-compile-dur="220">Aura Pin</span><span class="cat-yr">2026</span><span class="cat-st plan">plan</span></div>
+        <div class="cat-desc" data-es="Wearable contextual · edge AI · privacidad · sólo procesa en dispositivo" data-en="Contextual wearable · edge AI · privacy-first · on-device only">Wearable contextual · edge AI · privacidad · sólo procesa en dispositivo</div>
+        <div class="cat-expand"><div class="cat-tagrow"><span class="cat-tag">ESP32</span><span class="cat-tag">TFLite</span><span class="cat-tag">BLE</span></div></div>
+      </div>
+      <div class="cat-item" data-cat="hardware" tabindex="0">
+        <span class="cat-chevron">›</span>
+        <div class="cat-row1"><span class="cat-n">12</span><span class="cat-nm" data-compile data-compile-dur="220">MARVIER-1</span><span class="cat-yr">2025</span><span class="cat-st wip">wip</span></div>
+        <div class="cat-desc" data-es="Simulante de regolito marciano · 3 configuraciones geológicas certificables" data-en="Mars regolith simulant · 3 certifiable geological configurations">Simulante de regolito marciano · 3 configuraciones geológicas certificables</div>
+        <div class="cat-expand"><div class="cat-tagrow"><span class="cat-tag">materials science</span><span class="cat-tag">granulometry</span></div></div>
+      </div>
+      <div class="cat-item" data-cat="hardware future" tabindex="0">
+        <span class="cat-chevron">›</span>
+        <div class="cat-row1"><span class="cat-n">13</span><span class="cat-nm" data-compile data-compile-dur="220">MDFC-Alpha</span><span class="cat-yr">2026</span><span class="cat-st plan">plan</span></div>
+        <div class="cat-desc" data-es="Medidor de flujo de muones · electrónica de alta tensión · scintillator" data-en="Muon flux meter · high-voltage electronics · scintillator">Medidor de flujo de muones · electrónica de alta tensión · scintillator</div>
+        <div class="cat-expand"><div class="cat-tagrow"><span class="cat-tag">HV electronics</span><span class="cat-tag">FPGA</span><span class="cat-tag">scintillator</span></div></div>
+      </div>
+      <div class="cat-item" data-cat="ai software future" tabindex="0">
+        <span class="cat-chevron">›</span>
+        <div class="cat-row1"><span class="cat-n">14</span><span class="cat-nm" data-compile data-compile-dur="220">Diophantus</span><span class="cat-yr">2026</span><span class="cat-st res">research</span></div>
+        <div class="cat-desc" data-es="Compilador de C a polinomios diofánticos (MRDP) · Turing completeness en Z" data-en="Compiler from C to Diophantine polynomials (MRDP) · Turing completeness over Z">Compilador de C a polinomios diofánticos (MRDP) · Turing completeness en Z</div>
+        <div class="cat-expand"><div class="cat-tagrow"><span class="cat-tag">Rust</span><span class="cat-tag">MRDP theorem</span><span class="cat-tag">compiler</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="log" class="ch">
+    <p class="ch-label" data-compile data-compile-dur="280" data-es="TRAYECTORIA" data-en="CAREER">TRAYECTORIA</p>
+    <div class="gitlog">
+      <div class="commit">
+        <div class="hash">a4f1c2e</div>
+        <div>
+          <div class="sub"><em data-compile data-compile-dur="240" data-es="Erasmus+" data-en="Erasmus+">Erasmus+</em> — <span data-es="TU Graz &amp; Uni Graz" data-en="TU Graz &amp; Uni Graz">TU Graz &amp; Uni Graz</span></div>
+          <div class="who">Feb–Jun 2025 · Graz, AT</div>
+          <div class="body" data-es="Estancia internacional en inteligencia computacional y física técnica. Origen del proyecto <strong>TRAPPIST-1</strong> y del motor de optimización Legacy. Certificación A1 en alemán." data-en="International stay in computational intelligence and technical physics. Birth of <strong>TRAPPIST-1</strong> and the Legacy optimisation engine. A1 German certification.">
+            Estancia internacional en inteligencia computacional y física técnica. Origen del proyecto <strong>TRAPPIST-1</strong> y del motor de optimización Legacy. Certificación A1 en alemán.
+          </div>
+        </div>
+      </div>
+      <div class="commit">
+        <div class="hash">c9b2dd4</div>
+        <div>
+          <div class="sub"><em data-compile data-compile-dur="240" data-es="Grado en Tecnologías Interactivas" data-en="BSc Interactive Technologies">Grado en Tecnologías Interactivas</em></div>
+          <div class="who">2022–2027 · UPV, Gandia</div>
+          <div class="body" data-es="Especialización full-stack y producto interactivo. <strong>Matrícula de Honor</strong> en Programación 1." data-en="Full-stack and interactive product specialisation. <strong>Distinction</strong> in Programming 1.">
+            Especialización full-stack y producto interactivo. <strong>Matrícula de Honor</strong> en Programación 1.
+          </div>
+        </div>
+      </div>
+      <div class="commit">
+        <div class="hash">1ff8a07</div>
+        <div>
+          <div class="sub"><em data-compile data-compile-dur="240" data-es="Bachillerato Científico" data-en="Scientific Baccalaureate">Bachillerato Científico</em></div>
+          <div class="who">2020–2022 · IES Tirant lo Blanc</div>
+          <div class="body" data-es="Fundamentos en matemáticas, física y química. Primer contacto con la programación." data-en="Foundations in mathematics, physics and chemistry. First contact with programming.">
+            Fundamentos en matemáticas, física y química. Primer contacto con la programación.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="ch">
+    <p class="ch-label" data-compile data-compile-dur="280" data-es="CONTACTO" data-en="CONTACT">CONTACTO</p>
+    <div class="contact-box">
+      <h2><em data-compile data-compile-dur="340" data-es="Hablemos." data-en="Let's talk.">Hablemos.</em></h2>
+      <p class="lead" data-es="Si algo de lo anterior genera una <strong>conversación pendiente</strong>, escríbeme. Devuelvo casi todos los mensajes en menos de 24 h." data-en="If any of this triggered a <strong>conversation worth having</strong>, drop me a line. I reply to almost every message within 24h.">
+        Si algo de lo anterior genera una <strong>conversación pendiente</strong>, escríbeme. Devuelvo casi todos los mensajes en menos de 24 h.
+      </p>
+      <div class="contact-links">
+        <a href="mailto:javier@example.com"><span class="lbl">Email</span><span class="val">javier@example.com</span></a>
+        <a href="https://github.com/Javitax47"><span class="lbl">GitHub</span><span class="val">@Javitax47</span></a>
+        <a href="https://linkedin.com/in/javier"><span class="lbl">LinkedIn</span><span class="val">/in/javier</span></a>
+        <a href="#"><span class="lbl">CV</span><span class="val" data-es="Descargar PDF" data-en="Download PDF">Descargar PDF</span></a>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /.shell -->
+
+<footer class="foot">
+  <div><span class="pulse"></span><span data-es="14 proyectos · 0 errores" data-en="14 projects · 0 errors">14 proyectos · 0 errores</span></div>
+  <div> · © Javier 2026</div>
+</footer>
+
+<script defer src="js/boot.js"></script>
+<script defer src="js/bg-engine.js"></script>
+<script defer src="js/ui.js"></script>
+</body>
+</html>
