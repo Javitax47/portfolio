@@ -1,0 +1,13 @@
+{
+  "name": "portfolio-dev",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Dev-only tooling for the vanilla HTML/CSS/JS portfolio. No runtime, no production build. Used solely to run property-based and unit tests via Node's native test runner.",
+  "type": "commonjs",
+  "scripts": {
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "fast-check": "^3.23.1"
+  }
+}

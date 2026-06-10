@@ -16,6 +16,7 @@
   --ok:       #61d095;
   --err:      #ff6e7e;
   --mono:     'JetBrains Mono', ui-monospace, Menlo, monospace;
+  --meta-col: 440px;          /* ancho de la columna de TEXTO (.proj-meta); la imagen toma 1fr */
   /* bg-code palette — ci-* = idle (muted), c-* = lit (bright) */
   --ci-base:  #5b6072;
   --ci-tag:   #6f6493;
@@ -763,13 +764,13 @@ body.in-edit #ac { background: rgba(4,5,8,.96); }
 .proj-status.wip  { color: #ffb547; }
 .proj-status.plan { color: var(--muted); }
 
-.proj-body { display: grid; grid-template-columns: 360px 1fr; opacity: 0; transition: opacity .35s ease; }
+.proj-body { display: grid; grid-template-columns: 1fr var(--meta-col); opacity: 0; transition: opacity .35s ease; }
 .proj-panel.booted .proj-body { opacity: 1; }
 .proj-vis {
   position: relative; overflow: hidden;
   border-right: 1px solid var(--rule);
   background: color-mix(in oklab, var(--bg-3) 70%, var(--bg));
-  aspect-ratio: 4 / 3; min-height: 200px;
+  aspect-ratio: 5 / 4; min-height: 260px;
 }
 .proj-vis .proj-media {
   position: absolute; inset: 0; width: 100%; height: 100%;
@@ -784,6 +785,107 @@ body.in-edit #ac { background: rgba(4,5,8,.96); }
   border-top: 1px solid var(--proj-acc, var(--accent));
   border-left: 1px solid var(--proj-acc, var(--accent));
   opacity: .6; pointer-events: none; z-index: 4;
+}
+
+/* ══ MEDIA MOSAIC (Focus-Drift) — base/desktop ══ */
+/* Mosaico: rejilla densa organica que cubre por completo el area visual.
+   Se superpone al .proj-media estatico (fallback de mejora progresiva). */
+.proj-mosaic {
+  position: absolute; inset: 0; z-index: 1;
+  display: grid; gap: 3px; padding: 3px;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  isolation: isolate;                        /* z-index del foco local al mosaico */
+}
+
+/* Cada pieza se posiciona con las custom properties inyectadas por buildMosaic */
+.mosaic-tile {
+  position: relative; overflow: hidden; border: 0; padding: 0; cursor: pointer;
+  background: color-mix(in oklab, var(--bg-3) 70%, var(--bg));
+  grid-column: var(--col) / span var(--col-span);
+  grid-row:    var(--row) / span var(--row-span);
+  /* desorden controlado: jitter determinista por pieza (lo fija JS via --skew/--shift) */
+  transform: rotate(var(--skew, 0deg)) translate(var(--shift, 0px), 0);
+  transition: transform var(--focus-trans, .52s) cubic-bezier(.2,.7,.2,1),
+              opacity   .4s ease, filter .4s ease, box-shadow .4s ease;
+  outline-offset: -2px; will-change: transform, opacity;
+}
+.mosaic-tile .mosaic-media {
+  width: 100%; height: 100%; object-fit: cover;
+  object-position: var(--focus-pos, center);
+  opacity: 0; transition: opacity .45s ease, transform .6s cubic-bezier(.2,.7,.2,1);
+}
+.mosaic-tile .mosaic-media.loaded { opacity: 1; }
+
+/* Piezas en estado neutro (sin hover activo): todas iguales, sin expansion ni
+   atenuacion. Es el estado por defecto al cargar; el foco solo aparece al hacer
+   hover o al activarse el ciclo automatico. */
+.mosaic-tile.is-neutral { opacity: 1; filter: none; transform: none; }
+
+/* Pieza enfocada: se ELEVA por compositor (sin reflow): escala ADAPTATIVA al
+   tamaño de su celda (las pequeñas crecen mas) + z + acento. La escala y el
+   origen los inyecta buildMosaic por pieza (--focus-scale / --focus-origin). */
+.mosaic-tile.is-focus {
+  z-index: 5;
+  transform-origin: var(--focus-origin, center);
+  transform: scale(var(--focus-scale, 1.3));   /* anula el jitter al enfocar */
+  box-shadow: 0 10px 34px color-mix(in oklab, var(--proj-acc, var(--accent)) 42%, transparent),
+              inset 0 0 0 1px color-mix(in oklab, var(--proj-acc, var(--accent)) 70%, transparent);
+}
+.mosaic-tile.is-focus .mosaic-media { transform: scale(1.06); }  /* zoom extra para "ver mejor" */
+
+/* Piezas ambientales: atenuadas y ligeramente encogidas, ceden protagonismo */
+.mosaic-tile.is-ambient { opacity: .8; filter: saturate(.82) brightness(.86); }
+.proj-mosaic:hover .mosaic-tile.is-ambient,
+.proj-mosaic:focus-within .mosaic-tile.is-ambient { opacity: .62; }
+
+/* Barrido tipo CRT al cambiar de foco (gancho .just-focused, breve).
+   `forwards` deja el barrido fuera de pantalla al terminar (sin volver al
+   centro), evitando el parpadeo del reflejo al acabar la animacion. */
+.mosaic-tile.is-focus.just-focused::before {
+  content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background: linear-gradient(90deg, transparent,
+              color-mix(in oklab, var(--proj-acc, var(--accent)) 30%, transparent), transparent);
+  transform: translateX(-100%);
+  animation: mosaic-sweep .5s ease forwards;
+}
+@keyframes mosaic-sweep { from { transform: translateX(-100%); } to { transform: translateX(120%); } }
+
+/* Badge de tipo para video/gif */
+.mosaic-badge {
+  position: absolute; left: 8px; bottom: 8px; z-index: 4;
+  font-family: var(--mono); font-size: 9px; letter-spacing: .08em;
+  color: var(--proj-acc, var(--accent)); padding: 1px 5px;
+  background: color-mix(in oklab, var(--bg) 55%, transparent); border-radius: 2px;
+}
+
+/* HUD readout + indicador de modo */
+.mosaic-readout {
+  position: absolute; right: 10px; bottom: 8px; z-index: 6; pointer-events: none;
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: .06em;
+  color: var(--proj-acc, var(--accent)); opacity: .85;
+}
+.mosaic-modedot {
+  position: absolute; right: 10px; top: 8px; z-index: 6; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--proj-acc, var(--accent));
+}
+.mosaic-modedot[data-mode="auto"] { animation: mo-pulse 2s ease-in-out infinite; }
+.mosaic-modedot[data-mode="user"] { animation: none; opacity: .5; }   /* pausado por el usuario */
+@keyframes mo-pulse { 0%,100% { opacity: .4; } 50% { opacity: 1; } }
+
+/* Foco visible accesible (acento del proyecto, contraste >= 3:1) */
+.mosaic-tile:focus-visible { outline: 1px solid var(--proj-acc, var(--accent)); z-index: 6; }
+
+/* Layout espejado en paneles pares (coherente con el patron existente) */
+.proj-panel:nth-child(even) .proj-mosaic { transform: scaleX(-1); }
+.proj-panel:nth-child(even) .proj-mosaic .mosaic-media,
+.proj-panel:nth-child(even) .proj-mosaic .mosaic-badge,
+.proj-panel:nth-child(even) .proj-mosaic .mosaic-readout { transform: scaleX(-1); } /* des-espeja contenido */
+
+/* Utilidad: contenido solo para lectores de pantalla (region aria-live del mosaico) */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
 
 .proj-meta { padding: 22px 26px; display: flex; flex-direction: column; gap: 9px; min-width: 0; }
@@ -844,6 +946,28 @@ body.in-edit #ac { background: rgba(4,5,8,.96); }
   .proj-body { grid-template-columns: 1fr; }
   .proj-vis { border-right: 0; border-bottom: 1px solid var(--rule); aspect-ratio: 16/9; min-height: 0; }
   .proj-telemetry { height: 70px; }
+
+  /* Mosaico -> tira con scroll-snap (gesto natural por desplazamiento, sin flechas;
+     cero friccion tactil). Se anula la rejilla densa, el jitter y la elevacion de foco. */
+  .proj-mosaic {
+    position: relative; grid-template-columns: none; grid-template-rows: none;
+    grid-auto-flow: column; grid-auto-columns: 78%;
+    overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+  }
+  .mosaic-tile {
+    grid-column: auto !important; grid-row: auto !important;
+    transform: none !important; scroll-snap-align: center;
+  }
+  .mosaic-tile.is-focus { transform: none !important; box-shadow: none; }
+  .proj-panel:nth-child(even) .proj-mosaic { transform: none; }   /* sin espejado en la tira */
+}
+
+/* === Reduced motion: sin deriva, sin barrido, sin escala, sin jitter (JS ademas no arranca) === */
+@media (prefers-reduced-motion: reduce) {
+  .mosaic-tile, .mosaic-media { transition: none; transform: none !important; }
+  .mosaic-tile.is-focus, .mosaic-tile.is-neutral { transform: none !important; }
+  .mosaic-tile.is-focus.just-focused::before { animation: none; }
+  .mosaic-modedot { animation: none; }
 }
 
 /* per-project accent + top border */
@@ -855,11 +979,14 @@ body.in-edit #ac { background: rgba(4,5,8,.96); }
 .proj-panel[data-proj="mineralia"]{ --proj-acc: #61d095; }
 .proj-panel[data-proj="mario"]    { --proj-acc: #ff90a8; }
 
-/* Alternating layout */
+/* Alternating layout — la IMAGEN siempre ocupa la pista flexible (grande, 1fr);
+   el TEXTO ocupa la pista fija (--meta-col). Solo alterna el LADO. */
+.proj-panel:nth-child(even) .proj-body { grid-template-columns: var(--meta-col) 1fr; }
 .proj-panel:nth-child(even) .proj-vis { order: 2; border-right: 0; border-left: 1px solid var(--rule); }
 .proj-panel:nth-child(even) .proj-meta { order: 1; }
 .proj-panel:nth-child(even) .proj-vis::after { left: auto; right: 0; border-left: 0; border-right: 1px solid var(--proj-acc, var(--accent)); }
 @media (max-width: 900px) {
+  .proj-panel:nth-child(even) .proj-body { grid-template-columns: 1fr; }
   .proj-panel:nth-child(even) .proj-vis { order: unset; border-left: 0; }
   .proj-panel:nth-child(even) .proj-meta { order: unset; }
 }

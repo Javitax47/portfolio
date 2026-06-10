@@ -46,6 +46,12 @@ function setLang(l){
     if(v != null) tl.innerHTML = v;
   }
   document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.setLang===l));
+  // Re-etiquetar los mosaicos booteados al idioma activo (Req 8.3).
+  // Defensivo: los mosaicos pueden no estar hidratados todavia.
+  document.querySelectorAll('.proj-vis').forEach(v=>{
+    const c = v.__mosaicCtrl;
+    if(c && typeof c.relabel === 'function'){ try{ c.relabel(); }catch(e){} }
+  });
   renderBg();
   try{ localStorage.setItem('lang-d',l); }catch(e){}
 }

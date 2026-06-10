@@ -64,7 +64,7 @@ function initHero(){
     const panel=e.target;
     const fill=panel.querySelector('.proj-boot-fill');
     if(fill){ requestAnimationFrame(()=>{ fill.style.width='100%'; }); }
-    setTimeout(()=>{ panel.classList.add('booted'); initVis(panel); },440);
+    setTimeout(()=>{ panel.classList.add('booted'); initVis(panel); if(typeof initMediaMosaic==='function'){ try{ initMediaMosaic(panel); }catch(err){ console.warn('[media-mosaic] init failed', err); } } },440);
     pio.unobserve(panel);
   }),{threshold:0, rootMargin:'0px 0px -10% 0px'});
   document.querySelectorAll('.proj-panel').forEach(p=>pio.observe(p));
