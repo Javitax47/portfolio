@@ -1,4 +1,13 @@
 'use strict';
+
+let globalMouseX = -1;
+let globalMouseY = -1;
+if (typeof window !== 'undefined') {
+  window.addEventListener('mousemove', function (e) {
+    globalMouseX = e.clientX;
+    globalMouseY = e.clientY;
+  }, { passive: true });
+}
 /* =============================================================
    media-mosaic.js — Mosaico de Foco a la Deriva (Focus-Drift Mosaic)
    Javier Portfolio
@@ -1632,6 +1641,50 @@ function createController(panel, vis, dom, items, proj, initialState) {
       if (key === 'ArrowRight' || key === 'Right') { e.preventDefault(); next(); }
       else if (key === 'ArrowLeft' || key === 'Left') { e.preventDefault(); prev(); }
     });
+
+    let scrollTicking = false;
+    if (typeof window !== 'undefined') {
+      on(window, 'scroll', function () {
+        if (destroyed) { return; }
+        if (globalMouseX < 0 || globalMouseY < 0) { return; }
+        if (scrollTicking) { return; }
+        scrollTicking = true;
+        requestAnimationFrame(function () {
+          scrollTicking = false;
+          if (destroyed) { return; }
+          if (typeof document === 'undefined' || typeof document.elementFromPoint !== 'function') { return; }
+
+          const el = document.elementFromPoint(globalMouseX, globalMouseY);
+          const tile = el ? closestTile(el) : null;
+          if (tile) {
+            const idx = tileIndex(tile);
+            if (idx >= 0) {
+              if (idx === lastHover && state.mode === 'USER_FOCUS') { return; }
+              if (lastHover === -1) { hoverReturnIndex = state.focusIndex; }
+              lastHover = idx;
+              setFocus(idx, { source: 'hover' });
+            }
+          } else {
+            if (lastHover !== -1) {
+              lastHover = -1;
+              if (!state.pinned) {
+                if (hoverReturnIndex >= 0 && hoverReturnIndex !== state.focusIndex) {
+                  setFocus(hoverReturnIndex, { source: 'restore' });
+                }
+                hoverReturnIndex = -1;
+                if (scheduler) {
+                  state = reduce(state, { type: 'mouseleave' });
+                  setModeDot();
+                  scheduler.resumeAfter(MOSAIC_TIMING.RESUME_DELAY);
+                }
+              } else {
+                hoverReturnIndex = -1;
+              }
+            }
+          }
+        });
+      }, { passive: true });
+    }
 
     bindReducedMotion();
   }

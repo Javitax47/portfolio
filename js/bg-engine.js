@@ -1,4 +1,4 @@
-﻿'use strict';
+'use strict';
 /* =============================================================
    bg-engine.js — Background DOM walk, parallax, hover, edit mode,
                   diff engine, autocomplete
@@ -861,7 +861,9 @@ document.addEventListener('mousedown', e=>{
   if(_editing){
     if(e.target.closest('#ac')) return;
     hideAC();
-    if(!bg.contains(e.target) && !e.target.closest('#bg-code')){ exitEdit(); }
+    if(e.target === bg || e.target === bgVP || (!bg.contains(e.target) && !e.target.closest('#bg-code'))){
+      exitEdit();
+    }
     return;
   }
   if(e.target.closest(BLOCK)) return;
